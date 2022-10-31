@@ -36,8 +36,8 @@ const addPhraseToDisplay = arr => {
         }
     }
 
-    let randomPhrase = getRandomPhraseAsArray(phrases);
-    return addPhraseToDisplay (randomPhrase);
+    let randomPhrase = addPhraseToDisplay(randomPhrase);
+    return getRandomPhraseAsArray(phrases);
 };
 
 // check if letter is in the phrase//
@@ -84,7 +84,7 @@ qwerty.addEventListener('click', (e) => {
         e.target.className += 'chosen';
         if (buttoncheck === null) {
             missed += 1;
-            let ol = document.getElementByTagName ('ol')[0];
+            let ol = document.getElementsByTagName ('ol')[0];
             let tries = document.getElementsByClassName('tries')[0];
             ol.removeChild(tries);
         }
