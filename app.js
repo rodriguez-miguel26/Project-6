@@ -36,17 +36,17 @@ const addPhraseToDisplay = arr => {
         }
     }
 
-    let randomPhrase = addPhraseToDisplay(randomPhrase);
+    const randomPhrase = addPhraseToDisplay(randomPhrase);
     return getRandomPhraseAsArray(phrases);
 };
 
 // check if letter is in the phrase//
-const checkletter = (button) => {
-    const letters= phrase.getElementsByTagName('li');
+const checkletters = (button) => {
+    const checkletters= document.querySelectorAll('li');
     let match= null;
-     for (let i = 0; i < letters.length; i ++) {
-        if (letters[i].textContent.toLowerCase() === button.textContent ) {
-            letters[i] += 'show';
+     for (let i = 0; i < checkletters.length; i ++) {
+        if (checkletters[i].textContent.toLowerCase() === button) {
+            checkletters[i] += 'show';
             match = button[i].textContent;
         }
     }     
@@ -58,16 +58,17 @@ const checkWin = () => {
     const liLetter = document.getElementsByClassName('letter');
     const liSpace = document.getElementsByClassName('space');
     if (liLetter.length === liSpace.length) {
-        startOverlay.className='win';
-        startOverlay.textContent='Congrats! You Won!';
+        startOverlay.className.add='win';
+            startOverlay.remove('lose');
+            startOverlay.textContent='Congrats! You Won!';
+            startButton.textContent= 'Play Again!';
         startOverlay.style.display= 'flex';
-    }   else {
-            if (missed > 4) {
+    }   else if (missed > 4) {
             startOverlay.className='lose';
-            startOverlay.textContent='Sorry! You lost! Try Again!';
+            startOverlay.remove('win');
+            startButton.textContent='Sorry! You lost! Try Again!';
             startOverlay.style.display='felx';
-            }
-        }    
+        }
 };
 
 //* attach an event listener to the "Start Game" button to hide the start screen overlay*//
@@ -80,7 +81,7 @@ startButton.addEventListener('click', () => {
 //* listen for the onscreen keyboard to be clicked*//
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.className !=='chosen') {
-        const buttoncheck = checkletter(e.target);
+        const buttoncheck = checkletters(e.target.textContent);
         e.target.className += 'chosen';
         if (buttoncheck === null) {
             missed += 1;
@@ -89,5 +90,5 @@ qwerty.addEventListener('click', (e) => {
             ol.removeChild(tries);
         }
     }
-    checkWin();
+    return checkWin();
 });    
