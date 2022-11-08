@@ -41,13 +41,13 @@ const addPhraseToDisplay = arr => {
 };
 
 // check if letter is in the phrase//
-const checkletters = (button) => {
-    const checkletters= document.querySelectorAll('li');
-    let match= null;
-     for (let i = 0; i < checkletters.length; i ++) {
-        if (checkletters[i].textContent.toLowerCase() === button) {
-            checkletters[i] += 'show';
-            match = button[i].textContent;
+const checkletter = (button) => {
+    const letters = document.querySelectorAll('li');
+    let match = null;
+     for (let i = 0; i <letters.length; i ++) {
+        if (letters[i].textContent.toLowerCase() === button.textContent) {
+            letters[i].className += 'show';
+            match = letters[i].textContent;
         }
     }     
     return match;
@@ -56,14 +56,15 @@ const checkletters = (button) => {
 //check if the game has been won or lost//
 const checkWin = () => {
     const liLetter = document.getElementsByClassName('letter');
-    const liSpace = document.getElementsByClassName('space');
-    if (liLetter.length === liSpace.length) {
+    const liShow = document.getElementsByClassName('show');
+    if (liLetter.length === liShow.length) {
         startOverlay.className.add='win';
             startOverlay.remove('lose');
-            startOverlay.textContent='Congrats! You Won!';
+            text.textContent='Congrats! You Won!';
             startButton.textContent= 'Play Again!';
         startOverlay.style.display= 'flex';
-    }   else if (missed > 5) {
+        return startOverlay;
+    }   else if (missed > 4) {
             startOverlay.className='lose';
             startOverlay.remove('win');
             startButton.textContent='Sorry! You lost! Try Again!';
@@ -81,7 +82,7 @@ startButton.addEventListener('click', () => {
 //* listen for the onscreen keyboard to be clicked*//
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.className !=='chosen') {
-        const buttoncheck = checkletters(e.target.textContent);
+        const buttoncheck = checkletter(e.target.textContent);
         e.target.className += 'chosen';
         if (buttoncheck === null) {
             missed += 1;
