@@ -63,7 +63,7 @@ const checkWin = () => {
             startOverlay.textContent='Congrats! You Won!';
             startButton.textContent= 'Play Again!';
         startOverlay.style.display= 'flex';
-    }   else if (missed > 4) {
+    }   else if (missed > 5) {
             startOverlay.className='lose';
             startOverlay.remove('win');
             startButton.textContent='Sorry! You lost! Try Again!';
