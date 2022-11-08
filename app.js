@@ -60,7 +60,7 @@ const checkWin = () => {
     if (liLetter.length === liShow.length) {
         startOverlay.className.add='win';
             startOverlay.remove('lose');
-            text.textContent='Congrats! You Won!';
+            startOverlay.textContent='Congrats! You Won!';
             startButton.textContent= 'Play Again!';
         startOverlay.style.display= 'flex';
         return startOverlay;
