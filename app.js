@@ -1,8 +1,8 @@
 const qwerty= document.getElementById('qwerty');
 const phrase= document.getElementById('phrase');
+const ul= phrase.firstElementChild;
 const startButton= document.querySelector('.btn__reset'); 
 const startOverlay= document.querySelector('#overlay');
-
 let missed= 0;
 
 const phrases= [
@@ -23,34 +23,33 @@ const getRandomPhraseAsArray= arr => {
 
 //adds the letter of a string to the display//
 const addPhraseToDisplay = arr => {
-    const ul = phrase.getElementsByTagName('ul');
-        for (let i = 0; i < arr.length; i ++) {
-
-    const li = document.createElement('li');
+    for (let i = 0; i < arr.length; i ++) {
+        const li = document.createElement('li');
         li.textContent = arr[i];
-        display.appendChild(li);
-        if(arr[i] === '') {
-            li.className = 'space';
+        ul.appendChild(li);
+        if(arr[i] !== ' ') {
+            li.className.add = 'letter';
         } else {
-            li.className = 'letter';
+            li.className.add = 'space';
         }
     }
 
-    const randomPhrase = addPhraseToDisplay(randomPhrase);
-    return getRandomPhraseAsArray(phrases);
 };
 
+const phraseArray = getRandomPhraseAsArray(phrases);
+addPhraseToDisplay(phraseArray);
+
 // check if letter is in the phrase//
-const checkletter = (button) => {
+const checkletter = button => {
     const letters = document.querySelectorAll('li');
-    let match = null;
-     for (let i = 0; i <letters.length; i ++) {
+    let matchLetter = null;
+     for (let i = 0; i < letters.length; i ++) {
         if (letters[i].textContent.toLowerCase() === button.textContent) {
             letters[i].className += 'show';
-            match = letters[i].textContent;
+            matchLetter = letters[i].textContent;
         }
     }     
-    return match;
+    return matchLetter;
 } 
 
 //check if the game has been won or lost//
