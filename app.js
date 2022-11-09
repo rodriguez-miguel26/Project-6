@@ -41,13 +41,14 @@ addPhraseToDisplay(phraseArray);
 
 // check if letter is in the phrase//
 const checkletter = button => {
-    const letters = document.querySelectorAll('li');
+    const checkletter = document.querySelectorAll('li');
     let matchLetter = null;
-     for (let i = 0; i < letters.length; i ++) {
-        if (letters[i].textContent.toLowerCase() === button.textContent) {
-            letters[i].className += 'show';
-            matchLetter = letters[i].textContent;
+     for (let i = 0; i < checkletter.length; i ++) {
+        if (checkletter[i].textContent.toLowerCase() === button) {
+            checkletter[i].classList.add('show');
+            matchLetter = button;
         }
+        console.log(button);
     }     
     return matchLetter;
 } 
