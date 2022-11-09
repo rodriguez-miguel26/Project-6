@@ -28,9 +28,9 @@ const addPhraseToDisplay = arr => {
         li.textContent = arr[i];
         ul.appendChild(li);
         if(arr[i] !== ' ') {
-            li.className.add = 'letter';
+            li.className = 'letter';
         } else {
-            li.className.add = 'space';
+            li.className = 'space';
         }
     }
 
