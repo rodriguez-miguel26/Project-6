@@ -27,7 +27,7 @@ const addPhraseToDisplay = arr => {
         const li = document.createElement('li');
         li.textContent = arr[i];
         ul.appendChild(li);
-        if(arr[i] !== ' ') {
+        if(arr[i] != ' ') {
             li.className = 'letter';
         } else {
             li.className = 'space';
@@ -48,28 +48,27 @@ const checkletter = button => {
             checkletter[i].classList.add('show');
             matchLetter = button;
         }
-        console.log(button);
     }     
     return matchLetter;
 } 
 
 //check if the game has been won or lost//
 const checkWin = () => {
-    const liLetter = document.getElementsByClassName('letter');
-    const liShow = document.getElementsByClassName('show');
-    if (liLetter.length === liShow.length) {
-        startOverlay.className.add='win';
+    const Letter = document.getElementsByClassName('letter');
+    const Show = document.getElementsByClassName('show');
+    if (Letter.length === Show.length) {
+        startOverlay.classList.add='win';
             startOverlay.remove('lose');
             startOverlay.textContent='Congrats! You Won!';
             startButton.textContent= 'Play Again!';
         startOverlay.style.display= 'flex';
         return startOverlay;
     }   else if (missed > 4) {
-            startOverlay.className='lose';
+            startOverlay.classList.add='lose';
             startOverlay.remove('win');
             startButton.textContent='Sorry! You lost! Try Again!';
             startOverlay.style.display='felx';
-        }
+        } 
 };
 
 //* attach an event listener to the "Start Game" button to hide the start screen overlay*//
@@ -82,14 +81,14 @@ startButton.addEventListener('click', () => {
 //* listen for the onscreen keyboard to be clicked*//
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.className !=='chosen') {
-        const buttoncheck = checkletter(e.target.textContent);
+        const button = checkletter(e.target.textContent);
         e.target.className += 'chosen';
-        if (buttoncheck === null) {
+        if (button === null) {
             missed += 1;
             let ol = document.getElementsByTagName ('ol')[0];
             let tries = document.getElementsByClassName('tries')[0];
             ol.removeChild(tries);
         }
     }
-    return checkWin();
+    
 });    
