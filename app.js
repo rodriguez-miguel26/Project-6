@@ -1,8 +1,10 @@
 const qwerty= document.getElementById('qwerty');
 const phrase= document.getElementById('phrase');
-const ul= phrase.firstElementChild;
-const startButton= document.querySelector('.btn__reset'); 
-const startOverlay= document.querySelector('#overlay');
+const ul= document.getElementById('phrase')
+const BttonRST= document.querySelector('.btn__reset'); 
+const Overlay= document.getElementById('overlay');
+const result= document.querySelector('.title');
+const hearts = document.getElementsByClassName('tries');
 let missed= 0;
 
 const phrases= [
@@ -27,7 +29,7 @@ const addPhraseToDisplay = arr => {
         const li = document.createElement('li');
         li.textContent = arr[i];
         ul.appendChild(li);
-        if(arr[i] != ' ') {
+        if(arr[i] !== ' ') {
             li.className = 'letter';
         } else {
             li.className = 'space';
@@ -36,16 +38,23 @@ const addPhraseToDisplay = arr => {
 
 };
 
+//* attach an event listener to the "Start Game" button to hide the  screen overlay*//
+BttonRST.addEventListener('click', () => {
+    Overlay.style.display= 'none';
+    Overlay.classList.remove('win');
+    Overlay.classList.remove('lose');
+});
+
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
 // check if letter is in the phrase//
 const checkletter = button => {
-    const checkletter = document.querySelectorAll('li');
+    const words = document.querySelectorAll('li');
     let matchLetter = null;
-     for (let i = 0; i < checkletter.length; i ++) {
-        if (checkletter[i].textContent.toLowerCase() === button) {
-            checkletter[i].classList.add('show');
+     for (let i = 0; i < words.length; i ++) {
+        if (words[i].textContent.toLowerCase() === button) {
+            words[i].classList.add('show');
             matchLetter = button;
         }
     }     
@@ -54,41 +63,30 @@ const checkletter = button => {
 
 //check if the game has been won or lost//
 const checkWin = () => {
-    const Letter = document.getElementsByClassName('letter');
-    const Show = document.getElementsByClassName('show');
-    if (Letter.length === Show.length) {
-        startOverlay.classList.add='win';
-            startOverlay.remove('lose');
-            startOverlay.textContent='Congrats! You Won!';
-            startButton.textContent= 'Play Again!';
-        startOverlay.style.display= 'flex';
-        return startOverlay;
-    }   else if (missed > 4) {
-            startOverlay.classList.add='lose';
-            startOverlay.remove('win');
-            startButton.textContent='Sorry! You lost! Try Again!';
-            startOverlay.style.display='felx';
+    const hide = document.getElementsByClassName('letter');
+    const show = document.getElementsByClassName('show');
+    if (hide.length === show.length) {
+        Overlay.classList.add=('win');
+        result.innerHTML ='Congrats! You Won!';
+        Overlay.style.display= 'flex';
+    } else if (missed > 4) {
+        Overlay.classList.add='lose';
+        result.innerHTML='Sorry! You lost! Try Again!';
+        Overlay.style.display='felx';
         } 
 };
-
-//* attach an event listener to the "Start Game" button to hide the start screen overlay*//
-startButton.addEventListener('click', () => {
-    startOverlay.style.display= 'none';
-
-});
-
+checkWin();
 
 //* listen for the onscreen keyboard to be clicked*//
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.className !=='chosen') {
-        const button = checkletter(e.target.textContent);
-        e.target.className += 'chosen';
-        if (button === null) {
-            missed += 1;
-            let ol = document.getElementsByTagName ('ol')[0];
-            let tries = document.getElementsByClassName('tries')[0];
-            ol.removeChild(tries);
-        }
-    }
-    
-});    
+        e.target.classList.add ('chosen');
+        const matchLetter = checkletter(e.target.textContent);
+        checkWin();
+
+    } else if (matchLetter === null) {
+            hearts[missed].src='img/lostHeart.png';
+            missed ++;
+        }  
+    }        
+);    
