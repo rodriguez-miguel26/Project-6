@@ -4,7 +4,7 @@ const ul= document.getElementById('phrase')
 const BttonRST= document.querySelector('.btn__reset'); 
 const Overlay= document.getElementById('overlay');
 const result= document.querySelector('.title');
-const hearts = document.getElementsByClassName('tries');
+const hearts = document.querySelectorAll('.tries img');
 let missed= 0;
 
 const phrases= [
@@ -51,14 +51,14 @@ addPhraseToDisplay(phraseArray);
 // check if letter is in the phrase//
 const checkletter = button => {
     const words = document.querySelectorAll('li');
-    let matchLetter = null;
+    let match = false;
      for (let i = 0; i < words.length; i ++) {
         if (words[i].textContent.toLowerCase() === button) {
             words[i].classList.add('show');
-            matchLetter = button;
+            match = true;
         }
     }     
-    return matchLetter;
+    return match;
 } 
 
 //check if the game has been won or lost//
@@ -69,24 +69,24 @@ const checkWin = () => {
         Overlay.classList.add=('win');
         result.innerHTML ='Congrats! You Won!';
         Overlay.style.display= 'flex';
-    } else if (missed > 4) {
+    }  else { (missed > 4) 
         Overlay.classList.add='lose';
         result.innerHTML='Sorry! You lost! Try Again!';
-        Overlay.style.display='felx';
+        Overlay.style.display='flex';
         } 
 };
-checkWin();
 
 //* listen for the onscreen keyboard to be clicked*//
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.className !=='chosen') {
         e.target.classList.add ('chosen');
-        const matchLetter = checkletter(e.target.textContent);
-        checkWin();
+        const matchFound = checkletter(e.target.textContent);
+        if (!matchFound) {
+            console.log(hearts[missed]);
+            hearts[missed].src = 'img/lostHeart.png';
+            missed++;
 
-    } else if (matchLetter === null) {
-            hearts[missed].src='img/lostHeart.png';
-            missed ++;
-        }  
-    }        
-);    
+        }     
+    }    
+});  
+
