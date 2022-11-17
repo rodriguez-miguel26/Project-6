@@ -5,6 +5,7 @@ const BttonRST= document.querySelector('.btn__reset');
 const Overlay= document.getElementById('overlay');
 const result= document.querySelector('.title');
 const hearts = document.querySelectorAll('.tries img');
+const newGame = document.querySelectorAll('button');
 let missed= 0;
 
 const phrases= [
@@ -68,11 +69,13 @@ const checkWin = () => {
         Overlay.classList.remove('lose');
         result.innerHTML ='Congrats! You Won!';
         Overlay.style.display= 'flex';
+        reset();
     }  else if  ([missed] > 4) { 
         Overlay.classList.add='lose';
         Overlay.classList.remove('win');
         result.innerHTML='You lost! Try Again!';
         Overlay.style.display= 'flex';
+        reset();
         } 
 };
 
@@ -84,9 +87,17 @@ qwerty.addEventListener('click', (e) => {
         if (!matchFound) {
             hearts[missed].src = 'img/lostHeart.png';
             missed++;
-
         }     
     }
-    return checkWin()    
-});  
+    return checkWin();    
+}); 
 
+const reset = () => {
+    missed = 0; 
+    ul.innerHTML= '';
+    const newPhrase = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(newPhrase); 
+    const newGame = document.querySelectorAll('button');
+    for (let i = 0; i < newGame.length; i ++)
+        newGame[i].classList.remove('chosen'); 
+}
