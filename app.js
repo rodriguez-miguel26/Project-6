@@ -41,8 +41,6 @@ const addPhraseToDisplay = arr => {
 //* attach an event listener to the "Start Game" button to hide the  screen overlay*//
 BttonRST.addEventListener('click', () => {
     Overlay.style.display= 'none';
-    Overlay.classList.remove('win');
-    Overlay.classList.remove('lose');
 });
 
 const phraseArray = getRandomPhraseAsArray(phrases);
@@ -67,12 +65,14 @@ const checkWin = () => {
     const show = document.getElementsByClassName('show');
     if (hide.length === show.length) {
         Overlay.classList.add=('win');
+        Overlay.classList.remove('lose');
         result.innerHTML ='Congrats! You Won!';
         Overlay.style.display= 'flex';
-    }  else { (missed > 4) 
+    }  else if  ([missed] > 4) { 
         Overlay.classList.add='lose';
-        result.innerHTML='Sorry! You lost! Try Again!';
-        Overlay.style.display='flex';
+        Overlay.classList.remove('win');
+        result.innerHTML='You lost! Try Again!';
+        Overlay.style.display= 'flex';
         } 
 };
 
@@ -82,11 +82,11 @@ qwerty.addEventListener('click', (e) => {
         e.target.classList.add ('chosen');
         const matchFound = checkletter(e.target.textContent);
         if (!matchFound) {
-            console.log(hearts[missed]);
             hearts[missed].src = 'img/lostHeart.png';
             missed++;
 
         }     
-    }    
+    }
+    return checkWin()    
 });  
 
