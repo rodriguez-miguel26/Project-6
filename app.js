@@ -1,6 +1,6 @@
 const qwerty= document.getElementById('qwerty');
 const phrase= document.getElementById('phrase');
-const ul= document.getElementById('phrase')
+const ul= phrase.firstElementChild;
 const BttonRST= document.querySelector('.btn__reset'); 
 const Overlay= document.getElementById('overlay');
 const result= document.querySelector('.title');
@@ -65,13 +65,13 @@ const checkWin = () => {
     const hide = document.getElementsByClassName('letter');
     const show = document.getElementsByClassName('show');
     if (hide.length === show.length) {
-        Overlay.classList.add=('win');
+        Overlay.classList.add('win');
         Overlay.classList.remove('lose');
         result.innerHTML ='Congrats! You Won!';
         Overlay.style.display= 'flex';
         reset();
     }  else if  ([missed] > 4) { 
-        Overlay.classList.add='lose';
+        Overlay.classList.add('lose');
         Overlay.classList.remove('win');
         result.innerHTML='You lost! Try Again!';
         Overlay.style.display= 'flex';
