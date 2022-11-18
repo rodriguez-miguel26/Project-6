@@ -100,4 +100,6 @@ const reset = () => {
     const newGame = document.querySelectorAll('button');
     for (let i = 0; i < newGame.length; i ++)
         newGame[i].classList.remove('chosen'); 
-}
+    for (let i = 0; i < hearts.length; i ++)
+        hearts[i].src = 'img/liveHeart.png';
+};
